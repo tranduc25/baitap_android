@@ -3,23 +3,26 @@ package com.example.gmailapp
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gmailapp.databinding.ActivityMainBinding
+import com.example.gmailapp.databinding.MainActivityVer2Binding
 
-class MainActivity : AppCompatActivity() {
+class MainActivityVer2 : AppCompatActivity() {
     val ADD_ITEM_REQUEST_CODE = 1
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: MainActivityVer2Binding
     var array : ArrayList<Item> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = MainActivityVer2Binding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         array = ArrayList()
 
-        array.add(Item("alimjsi", "abcdef", "09.00 AM", false))
+        binding.rcvGmail.layoutManager = LinearLayoutManager(this)
+        var adapter : CustomAdapterVer2 = CustomAdapterVer2(array, this)
+        binding.rcvGmail.adapter = adapter
 
-        binding.listItem.adapter = CustomAdapter(this, array)
-        binding.addMes.setOnClickListener { onClickAdd() }
+        binding.addMesVer2.setOnClickListener { onClickAdd() }
     }
 
     private fun onClickAdd() {
@@ -33,7 +36,6 @@ class MainActivity : AppCompatActivity() {
             val receivedItem = data?.getSerializableExtra("item") as? Item
             if (receivedItem != null) {
                 array.add(receivedItem)
-                (binding.listItem.adapter as CustomAdapter).notifyDataSetChanged()
             }
         }
     }
