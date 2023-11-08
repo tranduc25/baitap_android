@@ -35,7 +35,7 @@ class AddActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
         val formattedTime = sdf.format(time)
         val item : Item = Item(binding.edtName.text.toString(), binding.edtInfomation.text.toString(), formattedTime, false)
-        val intent = Intent(this, MainActivity :: class.java)
+        val intent = Intent(this, MainActivityVer2 :: class.java)
         intent.putExtra("item", item)
         setResult(RESULT_OK, intent)
         finish()
